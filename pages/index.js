@@ -1,5 +1,7 @@
+import { useState } from "react";
 import Head from "next/head";
 
+// Styled label
 const Label = ({ htmlFor, children }) => (
   <label
     className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
@@ -9,11 +11,13 @@ const Label = ({ htmlFor, children }) => (
   </label>
 );
 
+// Styled form row container
 const FormRow = ({ children }) => (
   <div className="md:flex md:items-center mb-6">{children}</div>
 );
 
-const FormKVPair = ({ keyName, valueType, id }) => (
+// Styled form label/input pair
+const FormKVPair = ({ keyName, valueType, id, val, setVal }) => (
   <>
     <div className="md:w-1/3">
       <Label htmlFor={`${id}-field`}>{keyName}</Label>
@@ -24,43 +28,69 @@ const FormKVPair = ({ keyName, valueType, id }) => (
         id={id}
         type={valueType}
         name={`${id}-field`}
+        value={val}
+        onChange={(e) => setVal(e.target.value)}
       />
     </div>
   </>
 );
 
+// TODO: Use [Formik](https://formik.org/docs/tutorial#leveraging-react-context) to rig up the form, handle state, etc.
+// TODO: And use [Yup](https://github.com/jquense/yup) for validations
 export default function Home() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [phoneNumber, setPhone] = useState("");
+  const [streetAddress, setStreet] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [zip, setZip] = useState("");
+  const [isDone, setIsDone] = useState(false);
+
   const sendInvestor = (attachmentPath) => {
-    // NOTE: this is NOT canonical React, but it's quick
-    // TODO: Use [Formik](https://formik.org/docs/tutorial#leveraging-react-context) to rig up the form
-    // TODO: And use [Yup](https://github.com/jquense/yup) for validations
     return fetch("/api/investor", {
       method: "POST",
       body: JSON.stringify({
-        firstName: document.getElementById("firstName").value,
-        lastName: document.getElementById("lastName").value,
-        dateOfBirth: document.getElementById("dateOfBirth").value,
-        phoneNumber: document.getElementById("phoneNumber").value,
-        streetAddress: document.getElementById("streetAddress").value,
-        city: document.getElementById("city").value,
-        state: document.getElementById("state").value,
-        zip: document.getElementById("zipCode").value,
+        firstName,
+        lastName,
+        dateOfBirth,
+        phoneNumber,
+        streetAddress,
+        city,
+        state,
+        zip,
         attachmentPath,
       }),
     });
   };
 
+  function uploadFile(file) {
+    let formData = new FormData();
+    formData.append("file", file);
+
+    return fetch("/api/upload", {
+      method: "POST",
+      body: formData,
+    });
+  }
+
   const submitForm = async (event) => {
     event.preventDefault();
-    let file = document.getElementById("file-picker").files[0];
-    console.log(file);
 
+    // upload file to upload API
+    let file = document.getElementById("file-picker").files[0];
     const uploadResult = await uploadFile(file);
+
+    // send investor details to API
     const result = await uploadResult.json();
-    return sendInvestor(result.uploadPath);
+    await sendInvestor(result.uploadPath);
+
+    // update the UI
+    setIsDone(true);
   };
 
-  return (
+  return isDone === false ? (
     <div className="w-full max-w-sm">
       <Head>
         <title>Parallel Markets Investor Details</title>
@@ -76,16 +106,30 @@ export default function Home() {
         </div>
         <form onSubmit={submitForm}>
           <FormRow>
-            <FormKVPair keyName="First Name" valueType="text" id="firstName" />
+            <FormKVPair
+              keyName="First Name"
+              valueType="text"
+              id="firstName"
+              val={firstName}
+              setVal={setFirstName}
+            />
           </FormRow>
           <FormRow>
-            <FormKVPair keyName="Last Name" valueType="text" id="lastName" />
+            <FormKVPair
+              keyName="Last Name"
+              valueType="text"
+              id="lastName"
+              val={lastName}
+              setVal={setLastName}
+            />
           </FormRow>
           <FormRow>
             <FormKVPair
               keyName="Date of Birth"
               valueType="date"
               id="dateOfBirth"
+              val={dateOfBirth}
+              setVal={setDateOfBirth}
             />
           </FormRow>
           <FormRow>
@@ -93,6 +137,8 @@ export default function Home() {
               keyName="Phone Number"
               valueType="text"
               id="phoneNumber"
+              val={phoneNumber}
+              setVal={setPhone}
             />
           </FormRow>
           <FormRow>
@@ -100,16 +146,36 @@ export default function Home() {
               keyName="Street Address"
               valueType="text"
               id="streetAddress"
+              val={streetAddress}
+              setVal={setStreet}
             />
           </FormRow>
           <FormRow>
-            <FormKVPair keyName="City" valueType="text" id="city" />
+            <FormKVPair
+              keyName="City"
+              valueType="text"
+              id="city"
+              val={city}
+              setVal={setCity}
+            />
           </FormRow>
           <FormRow>
-            <FormKVPair keyName="State" valueType="text" id="state" />
+            <FormKVPair
+              keyName="State"
+              valueType="text"
+              id="state"
+              val={state}
+              setVal={setState}
+            />
           </FormRow>
           <FormRow>
-            <FormKVPair keyName="Zip Code" valueType="text" id="zipCode" />
+            <FormKVPair
+              keyName="Zip Code"
+              valueType="text"
+              id="zipCode"
+              val={zip}
+              setVal={setZip}
+            />
           </FormRow>
           <FormRow>
             <div className="md:w-1/3">
@@ -131,19 +197,11 @@ export default function Home() {
           </div>
         </form>
       </main>
-
-      {/* <footer>
-      </footer> */}
+    </div>
+  ) : (
+    <div>
+      Thanks for your submission!
+      {/* TODO: add a way to send another submission */}
     </div>
   );
-}
-
-function uploadFile(file) {
-  let formData = new FormData();
-  formData.append("file", file);
-
-  return fetch("/api/upload", {
-    method: "POST",
-    body: formData,
-  });
 }
