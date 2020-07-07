@@ -1,9 +1,9 @@
 import Head from "next/head";
 
-const Label = ({ forHtml, children }) => (
+const Label = ({ htmlFor, children }) => (
   <label
     className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-    for="inline-full-name"
+    htmlFor="inline-full-name"
   >
     {children}
   </label>
@@ -11,6 +11,21 @@ const Label = ({ forHtml, children }) => (
 
 const FormRow = ({ children }) => (
   <div className="md:flex md:items-center mb-6">{children}</div>
+);
+
+const FormKVPair = ({ keyName, valueType }) => (
+  <>
+    <div className="md:w-1/3">
+      <Label htmlFor="">{keyName}</Label>
+    </div>
+    <div className="md:w-2/3">
+      <input
+        className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+        id="inline-full-name"
+        type={valueType}
+      />
+    </div>
+  </>
 );
 
 export default function Home() {
@@ -36,20 +51,29 @@ export default function Home() {
           }}
         >
           <FormRow>
-            <div className="md:w-1/3">
-              <Label forHtml="">Full Name</Label>
-            </div>
-            <div className="md:w-2/3">
-              <input
-                className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                id="inline-full-name"
-                type="text"
-              />
-            </div>
+            <FormKVPair keyName="First Name" valueType="text" />
+          </FormRow>
+          <FormRow>
+            <FormKVPair keyName="Last Name" valueType="text" />
+          </FormRow>
+          <FormRow>
+            <FormKVPair keyName="Date of Birth" valueType="date" />
+          </FormRow>
+          <FormRow>
+            <FormKVPair keyName="Phone Number" valueType="text" />
+          </FormRow>
+          <FormRow>
+            <FormKVPair keyName="Street Address" valueType="text" />
+          </FormRow>
+          <FormRow>
+            <FormKVPair keyName="State" valueType="text" />
+          </FormRow>
+          <FormRow>
+            <FormKVPair keyName="Zip Code" valueType="text" />
           </FormRow>
           <FormRow>
             <div className="md:w-1/3">
-              <Label forHtml="file-upload">File</Label>
+              <Label htmlFor="file-upload">File</Label>
             </div>
             <div className="md:w-2/3">
               <input type="file" name="file-upload" id="file-picker" /> <br />
