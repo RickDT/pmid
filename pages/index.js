@@ -3,7 +3,7 @@ import Head from "next/head";
 const Label = ({ htmlFor, children }) => (
   <label
     className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-    htmlFor="inline-full-name"
+    htmlFor={htmlFor}
   >
     {children}
   </label>
@@ -30,8 +30,8 @@ const FormKVPair = ({ keyName, valueType, id }) => (
 );
 
 export default function Home() {
-  const sendInvestor = () => {
-    // NOTE: this is NOT canonical React
+  const sendInvestor = (attachmentPath) => {
+    // NOTE: this is NOT canonical React, but it's quick
     // TODO: Use [Formik](https://formik.org/docs/tutorial#leveraging-react-context) to rig up the form
     // TODO: And use [Yup](https://github.com/jquense/yup) for validations
     return fetch("/api/investor", {
@@ -45,8 +45,19 @@ export default function Home() {
         city: document.getElementById("city").value,
         state: document.getElementById("state").value,
         zip: document.getElementById("zipCode").value,
+        attachmentPath,
       }),
     });
+  };
+
+  const submitForm = async (event) => {
+    event.preventDefault();
+    let file = document.getElementById("file-picker").files[0];
+    console.log(file);
+
+    const uploadResult = await uploadFile(file);
+    const result = await uploadResult.json();
+    return sendInvestor(result.uploadPath);
   };
 
   return (
@@ -57,21 +68,13 @@ export default function Home() {
       </Head>
 
       <main>
-        <h1 className="title">Investor Details</h1>
-        <form
-          onSubmit={async (event) => {
-            event.preventDefault();
-            let file = document.getElementById("file-picker").files[0];
-            console.log(file);
-
-            // const results = await uploadFile(file);
-            // console.log({ results });
-            // console.log(results.status);
-            // console.log(results.body);
-
-            sendInvestor();
-          }}
-        >
+        <div className="md:flex md:items-center">
+          <div className="md:w-1/3"></div>
+          <div className="md:w-2/3">
+            <h1 className="text-2xl">Investor Details</h1>
+          </div>
+        </div>
+        <form onSubmit={submitForm}>
           <FormRow>
             <FormKVPair keyName="First Name" valueType="text" id="firstName" />
           </FormRow>

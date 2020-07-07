@@ -47,19 +47,16 @@ function uploadForm(next) {
 
         // Parse the request with Formidable
         return form.parse(req, (err, fields, files) => {
+          // TODO: support multiple files
+
           if (err) {
             reject(err);
             // throw String(JSON.stringify(err, null, 2));
           }
-          console.log(
-            "moving file: ",
-            files.file.path,
-            " to ",
-            `public/upload/${files.file.name}`
-          );
-          // TODO: support multiple files
-          fs.renameSync(files.file.path, `public/upload/${files.file.name}`);
-          req.form = { fields, files };
+          const uploadPath = `public/upload/${files.file.name}`;
+          console.log("moving file: ", files.file.path, " to ", uploadPath);
+          fs.renameSync(files.file.path, uploadPath);
+          req.form = { fields, files, uploadPath };
 
           // pass along to next in chain
           return resolve(next(req, res));

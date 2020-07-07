@@ -22,6 +22,7 @@ export default async (req, res) => {
       state: body.state,
       zip_code: body.zip,
       date_of_birth: body.dateOfBirth,
+      attachment_path: body.attachmentPath,
     })
     .then(function (rows) {
       console.log(rows);
