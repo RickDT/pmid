@@ -34,7 +34,7 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Finding your way around
+## Finding your way around the codebase
 
 The Frontend is primarily in `pages/index.js`
 
