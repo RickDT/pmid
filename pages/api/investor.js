@@ -12,7 +12,6 @@ const knex = require("knex")({
 // TODO: Data validation
 export default async (req, res) => {
   const body = JSON.parse(req.body);
-  console.log(body);
 
   return knex("investors")
     .insert({
@@ -27,7 +26,6 @@ export default async (req, res) => {
       attachment_path: body.attachmentPath,
     })
     .then(function (rows) {
-      console.log(rows);
       res.statusCode = 200;
       res.json({ status: 200 });
     })

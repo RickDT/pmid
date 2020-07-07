@@ -37,6 +37,8 @@ function uploadForm(next) {
           multiples: true,
           keepExtensions: true,
         });
+
+        // TODO: add some logging to these events to make it easier to diagnose issues
         form.once("error", (err) => {
           console.error(err);
           reject(err);
