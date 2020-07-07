@@ -57,8 +57,13 @@ function uploadForm(next) {
           // TODO: support multiple files
 
           if (err) {
-            reject(err);
+            return reject(err);
           }
+
+          if (!files || !files.file) {
+            return reject(err);
+          }
+
           const uploadPath = `public/upload/${files.file.name}`;
           console.log("moving file: ", files.file.path, " to ", uploadPath);
           fs.renameSync(files.file.path, uploadPath);
