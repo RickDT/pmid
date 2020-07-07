@@ -34,6 +34,15 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Finding your way around
+
+The Frontend is primarily in `pages/index.js`
+
+The API is in `pages/api` (a Next.js pattern).
+
+- upload.js handles file uploads
+- investor.js handles investor submission
+
 ## TODO
 
 There is a lot left to do!

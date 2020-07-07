@@ -1,5 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-// const knexConfig = require("../..knexfile.js")["development"];
+
 const knex = require("knex")({
   client: "sqlite3",
   connection: {
@@ -8,6 +8,8 @@ const knex = require("knex")({
   useNullAsDefault: true,
 });
 
+// TODO: Should this API be a full CRUD-capable resource?
+// TODO: Data validation
 export default async (req, res) => {
   const body = JSON.parse(req.body);
   console.log(body);
