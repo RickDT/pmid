@@ -4,11 +4,11 @@ See [assignment](https://gist.github.com/bmuller/341e89cf87083119ad1241f5b896fa7
 ## Tech
 
 This project uses:
-[React](http://reactjs.org)
-[Next.js](http://nextjs.org) for quick, fullstack JS app development
-[Formidable](https://github.com/node-formidable/formidable) for handling file uploads in Node
-[SQLite](https://www.sqlite.org/index.html) for local relational db
-[Knex](http://knexjs.org) for working with the DB
+[React](http://reactjs.org)  
+[Next.js](http://nextjs.org) for quick, fullstack JS app development  
+[Formidable](https://github.com/node-formidable/formidable) for handling file uploads in Node  
+[SQLite](https://www.sqlite.org/index.html) for local relational db  
+[Knex](http://knexjs.org) for working with the DB  
 [Tailwind CSS](https://tailwindcss.com) For quick, functional styling
 
 ## Getting Started
