@@ -1,14 +1,19 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
+// TODO: This is kinda rough overall!
+// TODO: Evaluate if Formidable is the right lib to use here
+// TODO: Handle multiple file uploads
+
 import Formidable from "formidable";
 const fs = require("fs");
 
 export const config = {
   api: {
-    bodyParser: false,
+    bodyParser: false, // expect only multi-part file uploads
   },
 };
 
+// handle the upload and then pass to a regular req/res handler
 export default uploadForm(handler);
 
 function handler(req, res) {
@@ -51,7 +56,6 @@ function uploadForm(next) {
 
           if (err) {
             reject(err);
-            // throw String(JSON.stringify(err, null, 2));
           }
           const uploadPath = `public/upload/${files.file.name}`;
           console.log("moving file: ", files.file.path, " to ", uploadPath);
