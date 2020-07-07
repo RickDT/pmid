@@ -11,14 +11,24 @@ export default function Home() {
       <main>
         <h1 className="title">Investor Details</h1>
         <form
-          onSubmit={(event) => {
+          onSubmit={async (event) => {
             event.preventDefault();
-            alert("hi");
+
+            let file = document.getElementById("file-picker").files[0];
+
+            let formData = new FormData();
+            formData.append("file", file);
+
+            const result = await fetch("/api/upload", {
+              method: "POST",
+              body: formData,
+            });
+            console.log({ result });
           }}
         >
           <label for="file-upload">File</label>
           <br />
-          <input type="file" name="file-upload" /> <br />
+          <input type="file" name="file-upload" id="file-picker" /> <br />
           <input type="submit" />
         </form>
       </main>
