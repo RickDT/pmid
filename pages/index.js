@@ -15,6 +15,7 @@ export default function Home() {
             event.preventDefault();
 
             let file = document.getElementById("file-picker").files[0];
+            console.log(file);
 
             let formData = new FormData();
             formData.append("file", file);
@@ -26,7 +27,7 @@ export default function Home() {
             console.log({ result });
           }}
         >
-          <label for="file-upload">File</label>
+          <label htmlFor="file-upload">File</label>
           <br />
           <input type="file" name="file-upload" id="file-picker" /> <br />
           <input type="submit" />
