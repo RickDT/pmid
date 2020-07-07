@@ -38,7 +38,7 @@ export default function Home() {
       method: "POST",
       body: JSON.stringify({
         firstName: document.getElementById("firstName").value,
-        lastname: document.getElementById("lastName").value,
+        lastName: document.getElementById("lastName").value,
         dateOfBirth: document.getElementById("dateOfBirth").value,
         phoneNumber: document.getElementById("phoneNumber").value,
         streetAddress: document.getElementById("streetAddress").value,
