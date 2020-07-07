@@ -10,6 +10,17 @@ export default function Home() {
 
       <main>
         <h1 className="title">Investor Details</h1>
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
+            alert("hi");
+          }}
+        >
+          <label for="file-upload">File</label>
+          <br />
+          <input type="file" name="file-upload" /> <br />
+          <input type="submit" />
+        </form>
       </main>
 
       {/* <footer>
