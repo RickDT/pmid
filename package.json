@@ -10,10 +10,12 @@
   "dependencies": {
     "formidable": "^1.2.2",
     "formik": "^2.1.4",
+    "knex": "^0.21.1",
     "next": "9.4.4",
     "postcss-preset-env": "^6.7.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "sqlite3": "^5.0.0",
     "tailwindcss": "^1.4.6"
   }
 }
