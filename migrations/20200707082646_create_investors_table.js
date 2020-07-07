@@ -8,6 +8,7 @@ exports.up = function (knex) {
     table.string("city").notNullable();
     table.string("state").notNullable();
     table.string("zip_code").notNullable();
+    table.string("attachment_path").notNullable();
     table.date("date_of_birth").notNullable();
     table.timestamp("created_at").defaultTo(knex.fn.now());
     table.timestamp("updated_at").defaultTo(knex.fn.now());
