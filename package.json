@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "formidable": "^1.2.2",
+    "formik": "^2.1.4",
     "next": "9.4.4",
     "postcss-preset-env": "^6.7.0",
     "react": "16.13.1",
