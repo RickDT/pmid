@@ -26,18 +26,13 @@ export default function Home() {
         <form
           onSubmit={async (event) => {
             event.preventDefault();
-
             let file = document.getElementById("file-picker").files[0];
             console.log(file);
 
-            let formData = new FormData();
-            formData.append("file", file);
-
-            const result = await fetch("/api/upload", {
-              method: "POST",
-              body: formData,
-            });
-            console.log({ result });
+            const results = await uploadFile(file);
+            console.log({ results });
+            console.log(results.status);
+            console.log(results.body);
           }}
         >
           <FormRow>
@@ -68,4 +63,14 @@ export default function Home() {
       </footer> */}
     </div>
   );
+}
+
+function uploadFile(file) {
+  let formData = new FormData();
+  formData.append("file", file);
+
+  return fetch("/api/upload", {
+    method: "POST",
+    body: formData,
+  });
 }
