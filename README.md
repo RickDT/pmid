@@ -1,3 +1,8 @@
+Parallel Markets job application code challenge.
+See [assignment](https://gist.github.com/bmuller/341e89cf87083119ad1241f5b896fa7c)
+
+---
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
