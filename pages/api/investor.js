@@ -8,11 +8,11 @@ const knex = require("knex")({
   useNullAsDefault: true,
 });
 
-export default (req, res) => {
+export default async (req, res) => {
   const body = JSON.parse(req.body);
   console.log(body);
 
-  const yay = knex("investors")
+  return knex("investors")
     .insert({
       first_name: body.firstName,
       last_name: body.lastName,
@@ -25,11 +25,12 @@ export default (req, res) => {
     })
     .then(function (rows) {
       console.log(rows);
+      res.statusCode = 200;
+      res.json({ status: 200 });
     })
     .catch(function (err) {
       console.error(err);
+      res.statusCode = 500;
+      res.json({ status: 500 });
     });
-  console.log(yay);
-
-  res.statusCode = 200;
 };
