@@ -1,10 +1,10 @@
-Parallel Markets job application code challenge.
-See [assignment](https://gist.github.com/bmuller/341e89cf87083119ad1241f5b896fa7c)
+Parallel Markets job application code challenge.  
+See [assignment](https://gist.github.com/bmuller/341e89cf87083119ad1241f5b896fa7c).
 
 ## Tech
 
 This project uses:  
-[React](http://reactjs.org)  
+[React](http://reactjs.org) on the Frontend  
 [Next.js](http://nextjs.org) for quick, fullstack JS app development  
 [Formidable](https://github.com/node-formidable/formidable) for handling file uploads in Node  
 [SQLite](https://www.sqlite.org/index.html) for local relational db  
