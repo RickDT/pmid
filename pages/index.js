@@ -193,7 +193,7 @@ export default function Home() {
               </FormRow>
               <FormRow>
                 <div className="md:w-1/3">
-                  <Label htmlFor="file-upload">File</Label>
+                  <Label htmlFor="file-upload">Attachment</Label>
                 </div>
                 <div className="md:w-2/3">
                   <input type="file" name="file-upload" id="file-picker" />{" "}
